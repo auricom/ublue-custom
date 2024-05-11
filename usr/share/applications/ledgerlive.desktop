@@ -1,0 +1,10 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Ledger Live
+Comment= Ledger crypto wallet app
+Exec=ledgerlive %F
+Icon=/usr/share/ledgerlive/app.png
+Terminal=false
+Type=Application
+MimeType=text/plain;
+Categories=Application;

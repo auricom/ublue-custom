@@ -1,81 +1,101 @@
-# image-template
+# ublue-custom
 
-# Purpose
+[![build-ublue](https://github.com/bsherman/ublue-custom/actions/workflows/build.yml/badge.svg)](https://github.com/bsherman/ublue-custom/actions/workflows/build.yml)
 
-This repository is meant to be a template for building your own custom Universal Blue image. This template is the recommended way to make customizations to any image published by the Universal Blue Project:
-- [Aurora](https://getaurora.dev/)
-- [Bazzite](https://bazzite.gg/)
-- [Bluefin](https://projectbluefin.io/)
-- [uCore](https://projectucore.io/)
-- [main](https://github.com/ublue-os/main/)
-- [hwe](https://github.com/ublue-os/hwe/) 
+Custom Fedora immutable desktop images which are mostly stock, plus the few things that are needed to make life good on my family's laptops.
 
-This template includes a Containerfile and a Github workflow for building the container image. As soon as the workflow is enabled in your repository, it will build the container image and push it to the Github Container Registry.
+## What is this?
 
-# Prerequisites
+These images are customized how I want, based on the great work by [team ublue os](https://github.com/ublue-os).
 
-Working knowledge in the following topics:
+Images built:
 
-- Containers
-  - https://www.youtube.com/watch?v=SnSH8Ht3MIc
-  - https://www.mankier.com/5/Containerfile
-- rpm-ostree
-  - https://coreos.github.io/rpm-ostree/container/
-- Fedora Silverblue (and other Fedora Atomic variants)
-  - https://docs.fedoraproject.org/en-US/fedora-silverblue/
-- Github Workflows
-  - https://docs.github.com/en/actions/using-workflows
+- Bluefin-dx
+- Bluefin-dx-nvidia
 
-# How to Use
+Based on:
 
-## Template
+- [ublue-os/main](https://github.com/ublue-os/main) for good foundations
+  - adds distrobox, freeworld mesa and media codecs, gnome-tweaks (on gnome), just, nvtop, openssl, pipewire-codec-aptx, ratbagd, vim
+  - sets automatic staging of updates to system
+  - sets flatpaks to update twice a day
+- [ublue-os/nvida](https://github.com/ublue-os/nvidia) for nvidia variants adds:
+  - nvidia kernel drivers
+  - nvidia container runtime
+  - nvidia vaapi driver
+  - nvidia selinux config
 
-Select `Use this Template` and create a new repository from it. To enable the workflows, you may need to go the `Actions` tab of the new repository and click to enable workflows.
+## Features
 
-## Containerfile
+In addition to the packages/config provided by base images, this image:
+  
+- Adds the following packages to the base image:
+  - Only on Silverblue: Gnome specific packages
+    - default font set to Noto Sans
+    - gnome shell extensions (appindicator, dash-to-dock, gsconnect, move-clock, no-overview, notifications-reloaded)
+    - gsconnect (plus dependancies)
+- Sets faster timeout on systemd waiting for shutdown
+- Sets gnome's "APP is not responding" check to 30 seconds
+- Sets some a few custom gnome settings (see etc/dconf)
 
-This file defines the operations used to customize the selected image. It contains examples of possible modifications, including how to:
-- change the upstream from which the custom image is derived
-- add additional RPM packages
-- add binaries as a layer from other images
+## Applications
 
-## Workflows
+- Flatpaks
+  - Then run `just install-apps-gnome` to install the now missing apps (plus a few nice extras)
+  - Run `just` recipe with `-n` for a dry-run, eg: `just -n install-apps-creative`
 
-### build.yml
+## Just Customizations
 
-This workflow creates your custom OCI image and publishes it to the Github Container Registry (GHCR). By default, the image name will match the Github repository name.
+A `just` task runner default config is included for easy customization after first boot.
+It will copy a template to your home directory.
 
-#### Container Signing
+After that run `ujust` to get a list of default commands ( a sample set of commands is included below ):
 
-Container signing is important for end-user security and is enabled on all Universal Blue images. It is recommended you set this up, and by default the image builds *will fail* if you don't.
+```bash
+`ujust
+Click here to view the Universal Blue just documentation
+Available commands:
+ - install-apps                   # Install misc apps for my home users
+ - install-games                  # Install Steam with MangoHud, Gamescope and Prototricks
+ - install-pwa-flatpak-overrides  # Give browsers permission to create PWAs (Progressive Web Apps)
+```
 
-This provides users a method of verifying the image.
+Check the [just website](https://just.systems) for tips on modifying and adding your own recipes.
 
-1. Install the [cosign CLI tool](https://edu.chainguard.dev/open-source/sigstore/cosign/how-to-install-cosign/#installing-cosign-with-the-cosign-binary)
+## Installation & Usage
 
-2. Run inside your repo folder:
+### Install from Upstream
 
-    ```bash
-    cosign generate-key-pair
-    ```
+Install from an official Bluefin ISO:
 
-    
-    - Do NOT put in a password when it asks you to, just press enter. The signing key will be used in GitHub Actions and will not work if it is encrypted.
+- [Silverblue (GNOME)](https://fedoraproject.org/silverblue/download/)
 
-> [!WARNING]
-> Be careful to *never* accidentally commit `cosign.key` into your git repo.
+### Rebase to Custom
 
-3. Add the private key to GitHub
+After installation is complete, use the appropriate `rebase` command to install one of these custom images.
 
-    - This can also be done manually. Go to your repository settings, under Secrets and Variables -> Actions
-    ![image](https://user-images.githubusercontent.com/1264109/216735595-0ecf1b66-b9ee-439e-87d7-c8cc43c2110a.png)
-    Add a new secret and name it `SIGNING_SECRET`, then paste the contents of `cosign.key` into the secret and save it. Make sure it's the .key file and not the .pub file. Once done, it should look like this:
-    ![image](https://user-images.githubusercontent.com/1264109/216735690-2d19271f-cee2-45ac-a039-23e6a4c16b34.png)
+_Note: for `IMAGE_NAME` in the commands below, substitute one of these image names:_
 
-    - (CLI instructions) If you have the `github-cli` installed, run:
+- `bluefin-dx`
+- `bluefin-dx-nvidia`
 
-    ```bash
-    gh secret set SIGNING_SECRET < cosign.key
-    ```
+We build `latest` which currently points to Fedora 39 (Fedora 40 will become latest after it releases and related packages have stabilized). Fedora 37 and 38 are no longer built here. You can chose a specific version by using the `39` or `40` tag instead of `latest`:
 
-4. Commit the `cosign.pub` file into your git repository
+    sudo rpm-ostree rebase \
+        ostree-unverified-registry:ghcr.io/auricom/IMAGE_NAME:latest
+
+We build date tags as well, so if you want to rebase to a particular day's release:
+
+    sudo rpm-ostree rebase \
+        ostree-unverified-registry:ghcr.io/auricom/IMAGE_NAME:39-20240419
+
+## Verification
+
+These images are signed with sigstore's [cosign](https://docs.sigstore.dev/cosign/overview/) using both OpenID Connect with Github and a repo specific keypair. You can verify the signature by running one the following command:
+
+    cosign verify \
+        --certificate-oidc-issuer "https://token.actions.githubusercontent.com" \
+        --certificate-identity-regexp "https://github.com/auricom/ublue-custom" \
+        ghcr.io/auricom/IMAGE_NAME
+
+    cosign verify --key cosign.pub ghcr.io/auricom/IMAGE_NAME
