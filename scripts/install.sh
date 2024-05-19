@@ -14,3 +14,4 @@ mkdir -p /var/lib/alternatives
 /tmp/apps/comictagger.sh
 /tmp/apps/dysk.sh
 /tmp/apps/ledgerlive.sh
+/tmp/apps/nix-portable.sh
