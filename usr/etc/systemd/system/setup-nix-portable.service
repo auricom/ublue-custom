@@ -1,14 +1,15 @@
 [Unit]
 Description=Setup Nix-portable
-Wants=network-online.target
-After=network-online.target
 ConditionPathExists=!/nix
+DefaultDependencies=no
+Requires=local-fs-pre.target
+After=local-fs-pre.target
 
 [Service]
 Type=oneshot
-ExecStart=chattr -i /
+ExecStartPre=chattr -i
 ExecStart=ln -s /var/home/nix-portable /nix
-ExecStart=chattr +i /
+ExecStopPost=chattr +i
 
 [Install]
 WantedBy=default.target multi-user.target

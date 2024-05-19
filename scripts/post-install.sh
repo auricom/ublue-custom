@@ -2,14 +2,10 @@
 
 set -ouex pipefail
 
-# temporarily disabled for testing various signature verification methods
-# add customized container policy based on upstream's
-#cat /usr/etc/containers/policy.json  | jq -M '.transports.docker += {"ghcr.io/bsherman":[{"type":"sigstoreSigned","keyPath":"/usr/etc/pki/containers/bsherman.pub","signedIdentity":{"type":"matchRepository"}}]}' > /tmp/bsherman-policy.json && \
-#  cp /tmp/bsherman-policy.json /usr/etc/containers/policy.json
-
 # pre-enabled services
 systemctl enable podman
 systemctl enable podman-auto-update
+systemctl enable setup-nix-portable
 
 # custom shutdown timeouts
 if [ ! -f /etc/systemd/user.conf ]; then
