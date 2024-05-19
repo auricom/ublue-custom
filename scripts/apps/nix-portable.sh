@@ -8,6 +8,9 @@ wget --quiet --output-document /usr/bin/nix-portable \
 
 chmod +x /usr/bin/nix-portable
 
+ln -s /usr/bin/nix-portable /usr/bin/nix
+ln -s /usr/bin/nix-portable /usr/bin/nix-shell
+
 #####
 # Register path symlink
 # We do this via tmpfiles.d so that it is created by the live system.

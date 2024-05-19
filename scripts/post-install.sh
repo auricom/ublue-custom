@@ -5,7 +5,6 @@ set -ouex pipefail
 # pre-enabled services
 systemctl enable podman
 systemctl enable podman-auto-update
-systemctl enable setup-nix-portable
 
 # custom shutdown timeouts
 if [ ! -f /etc/systemd/user.conf ]; then

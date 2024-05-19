@@ -7,9 +7,9 @@ After=local-fs-pre.target
 
 [Service]
 Type=oneshot
-ExecStartPre=chattr -i
+ExecStartPre=chattr -i /
 ExecStart=ln -s /var/home/nix-portable /nix
-ExecStopPost=chattr +i
+ExecStopPost=chattr +i /
 
 [Install]
 WantedBy=default.target multi-user.target

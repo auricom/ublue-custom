@@ -14,4 +14,5 @@ mkdir -p /var/lib/alternatives
 /tmp/apps/devbox.sh
 /tmp/apps/dysk.sh
 /tmp/apps/ledgerlive.sh
+/tmp/apps/librewolf.sh
 /tmp/apps/nix-portable.sh
