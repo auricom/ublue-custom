@@ -1,0 +1,14 @@
+[Unit]
+Description=Setup Nix-portable
+Wants=network-online.target
+After=network-online.target
+ConditionPathExists=!/nix
+
+[Service]
+Type=oneshot
+ExecStart=chattr -i /
+ExecStart=ln -s /var/home/nix-portable /nix
+ExecStart=chattr +i /
+
+[Install]
+WantedBy=default.target multi-user.target

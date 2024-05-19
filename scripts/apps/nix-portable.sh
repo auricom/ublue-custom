@@ -3,9 +3,15 @@
 set -ouex pipefail
 
 
-mkdir /usr/nix
-mkdir -p /home/nix/store
+wget --quiet --output-document /usr/bin/nix-portable \
+    "https://github.com/DavHau/nix-portable/releases/latest/download/nix-portable-$(uname -m)" && \
 
-ln -s /home/nix/store /usr/nix/store
+chmod +x /usr/bin/nix-portable
 
-chown -R 1000:1000 /home/nix
+#####
+# Register path symlink
+# We do this via tmpfiles.d so that it is created by the live system.
+cat >/usr/lib/tmpfiles.d/nix-portable.conf <<EOF
+d /var/home/nix-portable 0755 1000 1000 - -
+d /var/home/nix-portable/store 0755 1000 1000 - -
+EOF
