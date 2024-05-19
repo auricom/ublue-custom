@@ -9,10 +9,8 @@ mkdir -p /var/lib/alternatives
 /tmp/grub-theme.sh
 
 # apps install
-/tmp/apps/1password.sh
 /tmp/apps/comictagger.sh
 /tmp/apps/devbox.sh
 /tmp/apps/dysk.sh
 /tmp/apps/ledgerlive.sh
-/tmp/apps/librewolf.sh
 /tmp/apps/nix-portable.sh
