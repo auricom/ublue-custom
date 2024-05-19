@@ -9,6 +9,7 @@ mkdir -p /var/lib/alternatives
 /tmp/grub-theme.sh
 
 # apps install
+flatpak install https://downloads.1password.com/linux/flatpak/1Password.flatpakref
 /tmp/apps/comictagger.sh
 /tmp/apps/devbox.sh
 /tmp/apps/dysk.sh
