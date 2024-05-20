@@ -1,0 +1,2 @@
+1000 ALL=(ALL) NOPASSWD: /usr/bin/distrobox
+1000 ALL=(ALL) NOPASSWD: /home/*/.local/share/distrobox/*
