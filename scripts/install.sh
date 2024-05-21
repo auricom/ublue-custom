@@ -5,7 +5,6 @@ set -ouex pipefail
 # ensure that RPM post-install don't break with alternatives reqs
 mkdir -p /var/lib/alternatives
 
-/tmp/fonts.sh
 /tmp/grub-theme.sh
 
 # apps install
