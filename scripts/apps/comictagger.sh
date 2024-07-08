@@ -7,6 +7,6 @@ set -ouex pipefail
 COMICTAGGER_VERSION=1.6.0-alpha.12
 
 wget --quiet --output-document /usr/bin/comictagger \
-    https://github.com/comictagger/comictagger/releases/download/${COMICTAGGER_VERSION}/ComicTagger-x86_64.AppImage
+    "https://github.com/comictagger/comictagger/releases/download/${COMICTAGGER_VERSION}/ComicTagger-x86_64.AppImage"
 
 chmod +x /usr/bin/comictagger
