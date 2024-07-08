@@ -12,5 +12,6 @@ mkdir -p /var/lib/alternatives
 /tmp/apps/comictagger.sh
 /tmp/apps/devbox.sh
 /tmp/apps/dysk.sh
+/tmp/apps/k8slens.sh
 /tmp/apps/ledger.sh
 /tmp/apps/streamdeck.sh
