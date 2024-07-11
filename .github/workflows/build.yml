@@ -9,7 +9,11 @@ on:
     branches:
       - main
     paths-ignore:
+      - .github
+      - .gitignore
+      - .trunk
       - '**/README.md'
+      - LICENSE
   workflow_dispatch:
 
 env:
