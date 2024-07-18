@@ -36,12 +36,9 @@ jobs:
       fail-fast: false
       matrix:
         image_name: [bluefin-dx, bluefin-dx-nvidia]
-        major_version: [39, 40]
+        major_version: [stable]
         include:
-          - major_version: 39
-            is_latest_version: true
-            is_stable_version: true
-          - major_version: 40
+          - major_version: stable
             is_latest_version: false
             is_stable_version: false
     steps:
