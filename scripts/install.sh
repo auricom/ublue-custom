@@ -5,8 +5,6 @@ set -ouex pipefail
 # ensure that RPM post-install don't break with alternatives reqs
 mkdir -p /var/lib/alternatives
 
-/tmp/grub-theme.sh
-
 # apps install
 /tmp/apps/1password.sh
 /tmp/apps/comictagger.sh
