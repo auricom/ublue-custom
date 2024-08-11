@@ -1,8 +1,8 @@
 ### 1. BUILD ARGS
 ## IMAGE_NAME arg can be anything from ublue upstream: silverblue, kinoite, sericea, vauxite, mate, lxqt, base
 ARG IMAGE_NAME="${IMAGE_NAME:-bluefin-dx}"
-## FEDORA_VERSION arg must be a version built by ublue: 39 or 40 as of today
-ARG FEDORA_MAJOR_VERSION="${FEDORA_MAJOR_VERSION:-39}"
+## FEDORA_VERSION arg must be a version built by ublue
+ARG FEDORA_MAJOR_VERSION="${FEDORA_MAJOR_VERSION:-40}"
 
 
 ### 2. SOURCE IMAGE
