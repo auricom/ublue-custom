@@ -3,6 +3,12 @@ on:
   pull_request:
     branches:
       - main
+    paths-ignore:
+      - .github
+      - .gitignore
+      - .trunk
+      - '**/README.md'
+      - LICENSE
   schedule:
     - cron: 06 17 * * * # 17:06pm UTC everyday (26 minutes after ublue-os/bluefin builds)
   push:
