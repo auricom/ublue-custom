@@ -41,7 +41,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        image_name: [bluefin-dx, bluefin-dx-nvidia]
+        image_name: [bluefin-dx, bluefin-dx-nvidia-open]
         major_version: [stable]
         include:
           - major_version: stable
