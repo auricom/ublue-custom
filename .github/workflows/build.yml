@@ -10,7 +10,7 @@ on:
       - '**/README.md'
       - LICENSE
   schedule:
-    - cron: 06 17 * * * # 17:06pm UTC everyday (26 minutes after ublue-os/bluefin builds)
+    - cron: 50 6 * * * # 06:50 UTC sunday (1 hour after ublue-os/bluefin:stable builds)
   push:
     branches:
       - main
