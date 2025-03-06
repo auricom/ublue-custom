@@ -11,5 +11,6 @@ mkdir -p /var/lib/alternatives
 /tmp/apps/devbox.sh
 /tmp/apps/dysk.sh
 /tmp/apps/k8slens.sh
+/tmp/apps/kopiaui.sh
 /tmp/apps/ledger.sh
 /tmp/apps/streamdeck.sh
